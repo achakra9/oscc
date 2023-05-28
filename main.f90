@@ -5,6 +5,7 @@
           use, intrinsic :: iso_fortran_env, only: dp => real64
           ! integer, parameter :: dp = selected_real_kind(15)
           implicit none
+          integer :: dt(8)
           real(dp) :: a,b
           integer :: num_args, idx, ierr
           character(len=50), dimension(:), allocatable :: args
@@ -12,6 +13,8 @@
           integer, parameter :: io = 221  ! open the output file
           character(len=50) :: f_input, f_output
 
+
+          call date_and_time(values=dt)
 
 
           ! Read the command line arguments
@@ -43,6 +46,8 @@
               write(*,*)"Error in openning output file"
               stop
           end if
+          write(io,*)" OSCC program started on:",dt(3),'-',dt(2),'-', &
+                     dt(1),' at ',dt(5), ':', dt(6), ':',dt(7)
           write(io,*)a,a
           write(io,*)"Success"
 
